@@ -1,0 +1,5 @@
+{
+"tableType":1,
+"indexName":["姓名","手机号","性别"],
+"factorName":["填","不填"]
+}

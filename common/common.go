@@ -1,5 +1,3 @@
 package common
 
-const (
-	L423 = 1
-)
+const L423 = 1

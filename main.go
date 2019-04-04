@@ -26,7 +26,7 @@ func IsFileExists(path string) (bool, error) {
 	return false, err
 }
 
-func ParseDataFile(path string) (table *table.Table, err error) {
+func ParseDataFile(path string) (tableData *table.Table, err error) {
 
 	file, err := os.Open(path)
 	if err != nil {
@@ -37,9 +37,12 @@ func ParseDataFile(path string) (table *table.Table, err error) {
 	if err != nil {
 		return
 	}
-	if err = json.Unmarshal(data, table); err != nil {
+
+	tableData = &table.Table{}
+	if err = json.Unmarshal(data, tableData); err != nil {
 		return nil, err
 	}
+	fmt.Println(tableData)
 	return
 
 }
@@ -51,7 +54,6 @@ func main() {
 
 	flag.BoolVar(&printVer, "version", false, "print version")
 	flag.StringVar(&tableDataFilePath, "c", "tableData.json", "specify config file")
-	flag.StringVar(&tableDataFilePath, "c", "tableData.json", "specify config file")
 
 	flag.Parse()
 
@@ -59,9 +61,8 @@ func main() {
 		fmt.Println("V0.1")
 		os.Exit(0)
 	}
-
+	//fmt.Printf(tableDataFilePath);
 	exists, err := IsFileExists(tableDataFilePath)
-
 	binDir := path.Dir(tableDataFilePath)
 	if (!exists || err != nil) && binDir != "" && binDir != "." {
 		oldConfig := tableDataFilePath
@@ -75,6 +76,7 @@ func main() {
 			os.Exit(1)
 		}
 	}
+
 	orthogonalTable, err := table.NewTableFactory().GetOrthogonalByType(tableData.TableType)
 	if err != nil {
 		fmt.Println(err.Error())

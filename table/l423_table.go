@@ -1,8 +1,10 @@
 package table
 
+import "fmt"
+
 const (
-	column = 4
-	row    = 5
+	column = 3
+	row    = 4
 )
 
 var tableData = [][]int{
@@ -22,14 +24,19 @@ func (t L423) init() {
 
 func (t L423) GetTestCaseData(table Table) (testCase [][]string, err error) {
 
-	indexName := table.indexName
-	factorName := table.factorName
-	for i := 0; i < column; i++ {
-		testCase[1][i+1] = indexName[i]
+	indexName := table.IndexName
+	factorName := table.FactorName
+	testCase = make([][]string, row)
+	for i := 0; i < row; i++ {
+		testCase[i] = make([]string, column)
 	}
-	for i := 2; i < row; i++ {
-		for j := 1; j < column; j++ {
-			factorIndex := tableData[i-2][j-1]
+	for i := 0; i < column; i++ {
+		testCase[0][i] = indexName[i]
+		fmt.Println(i)
+	}
+	for i := 1; i < row; i++ {
+		for j := 0; j < column; j++ {
+			factorIndex := tableData[i-1][j]
 			testCase[i][j] = factorName[factorIndex]
 		}
 
