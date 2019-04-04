@@ -75,6 +75,11 @@ func main() {
 			os.Exit(1)
 		}
 	}
-
-
+	orthogonalTable, err := table.NewTableFactory().GetOrthogonalByType(tableData.TableType)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	testCaseData, err := orthogonalTable.GetTestCaseData(*tableData)
+	fmt.Println(testCaseData)
+	os.Exit(0)
 }
