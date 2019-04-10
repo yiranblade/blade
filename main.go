@@ -42,7 +42,6 @@ func ParseDataFile(path string) (tableData *table.Table, err error) {
 	if err = json.Unmarshal(data, tableData); err != nil {
 		return nil, err
 	}
-	fmt.Println(tableData)
 	return
 
 }
@@ -61,7 +60,6 @@ func main() {
 		fmt.Println("V0.1")
 		os.Exit(0)
 	}
-	//fmt.Printf(tableDataFilePath);
 	exists, err := IsFileExists(tableDataFilePath)
 	binDir := path.Dir(tableDataFilePath)
 	if (!exists || err != nil) && binDir != "" && binDir != "." {
